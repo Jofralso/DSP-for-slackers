@@ -1,5 +1,3 @@
-Sure, I can provide you with introductory exercises on discrete time using MATLAB, Octave, and Python. These exercises will cover basic concepts such as creating sequences, plotting, and simple operations. Let's start with three exercises: one for creating a sequence, one for plotting a sequence, and one for performing basic operations on sequences.
-
 ### Exercise 1: Create a Sequence
 
 #### MATLAB / Octave:
@@ -157,6 +155,33 @@ disp('Sequence after shifting:');
 disp(shifted_x);
 ```
 
+```matlab
+n = 1:10;
+k = 4;
+x = exp(n);
+[n1, x1] = sigshift(x, n, k); % here we used our sigshift function %
+
+subplot(2, 1, 1)
+stem(n, x)
+title('Original Signal')
+
+subplot(2, 1, 2)
+stem(n1, x1)
+title('Shifted Signal')
+
+function [n1,x1] = sigshift(x, n, k)
+    if k > 0
+        disp('Positive');
+        n1 = n(1):n(end) + k;
+        x1 = [zeros(1, k), x];
+    else
+        disp('Negative');
+        n1 = n(1) + k : n(end);
+        x1 = [x, zeros(1, abs(k))]; % abs is for absolute value of (k) because quantity can never be (-ve) negative %
+    end
+end  % End of sigshift function
+```
+
 #### Python:
 ```python
 x = [1, 2, 3, 4]
@@ -167,15 +192,52 @@ print(shifted_x)
 
 ### Exercise 8: Reflection
 
-#### Exercise:
-Reflect the sequence \(x[n] = \{1, 2, 3\}\) around the \(n=0\) axis.
+#### Exercise:x = [1, 2, 3];
+x = [1, 2, 3];
+n = 1:length(x);  % Assuming the indices start from 1 for the original sequence
+
+% Reflect the sequence
+reflected_x = fliplr(x);  % Reflect the sequence
+
+% Reflect the indices (without changing the sign)
+n_reflected = -fliplr(n);  % Reflect the indices
+
+% Plot the original sequence
+subplot(2, 1, 1);
+stem(n, x, 'r', 'LineWidth', 1.5);  % Original sequence in red
+title('Original Sequence');
+xlabel('Index (n)');
+ylabel('Amplitude');
+
+% Plot the reflected sequence
+subplot(2, 1, 2);
+stem(n_reflected, reflected_x, 'b', 'LineWidth', 1.5);  % Reflected sequence in blue
+title('Reflected Sequence');
+xlabel('Index (n)');
+ylabel('Amplitude');
 
 #### MATLAB / Octave:
 ```matlab
 x = [1, 2, 3];
+n = 1:length(x);  % Assuming the indices start from 1 for the original sequence
+
 reflected_x = fliplr(x);  % Reflect the sequence
-disp('Sequence after reflection:');
-disp(reflected_x);
+n_reflected = fliplr(n);  % Reflect the indices
+
+% Plot the original sequence
+subplot(2, 1, 1);
+stem(n, x, 'r', 'LineWidth', 1.5);  % Original sequence in red
+title('Original Sequence');
+xlabel('Index (n)');
+ylabel('Amplitude');
+
+% Plot the reflected sequence
+subplot(2, 1, 2);
+stem(n_reflected, reflected_x, 'b', 'LineWidth', 1.5);  % Reflected sequence in blue
+title('Reflected Sequence');
+xlabel('Index (n)');
+ylabel('Amplitude');
+
 ```
 
 #### Python:
@@ -194,9 +256,26 @@ Subsample the sequence \(x[n] = \{1, 2, 3, 4, 5, 6\}\) by keeping every second s
 #### MATLAB / Octave:
 ```matlab
 x = [1, 2, 3, 4, 5, 6];
-subsampled_x = x(1:2:end);  % Retain every second sample
-disp('Subsampled sequence:');
-disp(subsampled_x);
+n_original = 1:length(x);
+
+% Subsampling (retaining every second sample)
+subsampled_x = x(1:2:end);
+n_subsampled = 1:2:length(x);
+
+% Plot the original sequence
+subplot(2, 1, 1);
+stem(n_original, x, 'r', 'LineWidth', 1.5);  % Original sequence in red
+title('Original Sequence');
+xlabel('Sample Index');
+ylabel('Amplitude');
+
+% Plot the subsampled sequence
+subplot(2, 1, 2);
+stem(n_subsampled, subsampled_x, 'o', 'LineWidth', 1.5);  % Subsampled sequence with circles
+title('Subsampled Sequence');
+xlabel('Sample Index');
+ylabel('Amplitude');
+
 ```
 
 #### Python:
@@ -215,10 +294,29 @@ Perform oversampling on the sequence \(x[n] = \{1, 2, 3\}\) by inserting zero sa
 #### MATLAB / Octave:
 ```matlab
 x = [1, 2, 3];
+n_original = 1:length(x);
+
+% Oversampling (inserting zeros in between original samples)
 oversampled_x = zeros(1, 2*numel(x)-1);  % Initialize with zeros
 oversampled_x(1:2:end) = x;  % Insert original samples
-disp('Oversampled sequence:');
-disp(oversampled_x);
+n_oversampled = 1:length(oversampled_x);
+
+% Plot the original sequence
+subplot(2, 1, 1);
+stem(n_original, x, 'r', 'LineWidth', 1.5);  % Original sequence in red
+title('Original Sequence');
+xlabel('Sample Index');
+ylabel('Amplitude');
+
+% Plot the oversampled sequence
+subplot(2, 1, 2);
+plot(n_oversampled, oversampled_x, 'b-', 'LineWidth', 1.5);  % Oversampled sequence with solid line
+hold on;
+stem(n_oversampled, oversampled_x, 'o', 'LineWidth', 1.5);  % Mark original samples with circles
+hold off;
+title('Oversampled Sequence');
+xlabel('Sample Index');
+ylabel('Amplitude');
 ```
 
 #### Python:
@@ -248,6 +346,14 @@ stem(n, delta);
 xlabel('n');
 ylabel('\delta[n]');
 title('Unit Impulse Sequence');
+
+n = -5:5;
+u_n = (n >= 0);  % Create unit impulse sequence
+stem(n, u_n);
+xlabel('n');
+ylabel('u[n]');
+title('Unit Step Sequence');
+ylim([-0.1, 1.1]);  % Adjust y-axis limits for better visualization
 ```
 
 #### Python Example:
@@ -278,12 +384,14 @@ alpha1 = 0.5;
 alpha2 = 2;
 x1 = alpha1 .^ n;
 x2 = alpha2 .^ n;
-stem(n, x1, 'r', 'DisplayName', '0.5^n');
+stem(n, x1, 'r', 'DisplayName', '0.5^n', 'BaseValue', -1);
 hold on;
 stem(n, x2, 'b', 'DisplayName', '2^n');
 legend;
 xlabel('n');
 ylabel('x[n]');
+title('Exponential Sequences');
+
 title('Exponential Sequences');
 ```
 

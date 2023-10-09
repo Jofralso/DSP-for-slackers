@@ -1,0 +1,14 @@
+# Created by Octave 8.3.0, Tue Sep 26 11:35:12 2023 GMT <unknown@DESKTOP-R6OB15O>
+# name: n
+# type: double_range
+# base, limit, increment
+0 10 1
+
+
+# name: x
+# type: matrix
+# rows: 1
+# columns: 11
+ 1 2 4 8 16 32 64 128 256 512 1024
+
+

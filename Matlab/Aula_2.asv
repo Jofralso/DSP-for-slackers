@@ -1,0 +1,12 @@
+n = 0:39;
+A = 2; % Amplitude
+k = 3; % Inteiro
+N = 10; % Period
+
+omega_0 = 2*pi*k/N;
+x_periodic = A * cos(omega_0 * n);
+% Apenas é periódica se e só se omega_0 é um múltiplo racional de 2*pi
+stem(n, x_periodic);
+xlabel('n');
+ylabel('x[n]');
+title('Periodic Sinusoidal Sequence');
