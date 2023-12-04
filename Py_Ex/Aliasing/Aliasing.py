@@ -12,7 +12,7 @@ import numpy as np
 
 #numerical python to get array of float values and for sine operation
 t = np.arange(0, 2e-3, 10e-6) # x axis time period
-
+\
 # sampling at fs =10kHz in time domain ts=1/fs (0.1ms)
 ts = np.arange(0,2e-3,0.1e-3)
 
